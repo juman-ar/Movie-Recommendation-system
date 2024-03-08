@@ -36,11 +36,14 @@ public:
      */
     Movie(const std::string& name, int year);
 
+
     /**
      * returns the name of the movie
      * @return const ref to name of movie
      */
     const std::string &get_name () const;
+
+
   /**
    * returns the year the movie was made
    * @return year movie was made
@@ -54,14 +57,15 @@ public:
      * @param lhs: left hand side
      * @return returns true if (lhs.year) < rhs.year or (rhs.year == lhs.year & lhs.name < rhs.name) else return false
      */
-    //TODO operator<;
+    bool operator< (const Movie &rhs) const;
+
 
     /**
      * operator<< for movie
      * @param os ostream to output info with
      * @param movie movie to output
      */
-    // TODO operator<<;
+     friend std::ostream& operator<< (std::ostream& os, const Movie& movie);
 };
 
 

@@ -15,6 +15,7 @@ std::size_t sp_movie_hash(const sp_movie& movie){
     return res;
 }
 
+
 /**
  * equal function used for an unordered_map (implemented for you)
  * @param m1
@@ -24,11 +25,26 @@ std::size_t sp_movie_hash(const sp_movie& movie){
 bool sp_movie_equal(const sp_movie& m1,const sp_movie& m2){
     return !(*m1 < *m2) && !(*m2 < *m1);
 }
-int Movie::get_year () const
-{
+
+
+int Movie::get_year () const {
   return _year;
 }
-const std::string &Movie::get_name () const
-{
+
+
+const std::string &Movie::get_name () const{
   return _name;
+}
+
+
+bool Movie::operator< ( const Movie &rhs) const{
+  if (_year < rhs._year || (_year == rhs._year && _name < rhs._name){
+    return true;
+  }
+  return false;
+}
+
+std::ostream& operator<< (std::ostream& os, const Movie& movie){
+  os<< movie._name << "(" << movie._year<< ")"<<std::endl;
+  return os;
 }
