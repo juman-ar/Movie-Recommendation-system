@@ -4,13 +4,16 @@
 
 #ifndef RECOMMENDATIONSYSTEM_H
 #define RECOMMENDATIONSYSTEM_H
+#include <ostream>
 #include "User.h"
 
 class RecommendationSystem
 {
 public:
 
-	//explicit RecommendationSystem()
+	explicit RecommendationSystem();
+
+
     /**
      * adds a new movie to the system
      * @param name name of movie
@@ -55,8 +58,9 @@ public:
 	 */
 	sp_movie get_movie(const std::string &name, int year) const;
 
-
-	// TODO operator<<
+  friend std::ostream &
+  operator<< (std::ostream &os, const RecommendationSystem &rs);
+// TODO operator<<
 
 };
 

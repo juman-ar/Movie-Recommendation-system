@@ -8,24 +8,31 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <ostream>
 #include "Movie.h"
 
 class RecommendationSystem;
+
 typedef std::unordered_map<sp_movie, double, hash_func,equal_func> rank_map;
 
-class User
-{
+class User{
+
+  std::string _username;
+  rank_map _ranks;
+
 public:
 	/**
 	 * Constructor for the class
 	 */
 	// TODO User() this constructor can be implemented however you want
+    explicit User (const std::string& name, const rank_map &ranks);
 
-	/**
-	 * a getter for the user's name
-	 * @return the username
-	 */
-	// TODO get_name()
+  /**
+   * a getter for the user's name
+   * @return the username
+   */
+  const std::string &get_username () const;
+// TODO get_name()
 
 	/**
 	 * function for adding a movie to the DB
@@ -44,11 +51,12 @@ public:
      * @return
      */
     // TODO get_ranks()
+    const rank_map &get_ranks () const;
 
-	/**
-	 * returns a recommendation according to the movie's content
-	 * @return recommendation
-	 */
+  /**
+   * returns a recommendation according to the movie's content
+   * @return recommendation
+   */
 	sp_movie get_recommendation_by_content() const;
 
 	/**
@@ -74,6 +82,7 @@ public:
 	 * @return output stream
 	 */
 	// TODO &operator<<
+    friend std::ostream &operator<< (std::ostream &os, const User &user);
 };
 
 
