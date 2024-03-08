@@ -13,7 +13,9 @@
 #include <vector>
 #include "User.h"
 
+
 #define YEAR_SEPARATOR '-'
+typedef std::unique_ptr<RecommendationSystem> rs_ptr;
 
 
 class UsersLoader
@@ -30,7 +32,8 @@ public:
      * @param rs RecommendingSystem for the Users
      * @return vector of the users created according to the file
      */
-    static std::vector<User> create_users(const std::string& users_file_path, /*ptr_type*/ rs) noexcept(false);
+    static std::vector<User> create_users(const std::string&
+    users_file_path, rs_ptr rs) noexcept(false);
 
 };
 

@@ -2,14 +2,17 @@
 #include "RecommendationSystemLoader.h"
 #include <fstream>
 #include <sstream>
+#include <memory>
 #define YEAR_SEPARATOR '-'
 #define ERROR_MSG "input file is incorrect"
 
 
-/*ptr_type*/ RecommendationSystemLoader::create_rs_from_movies(const
+
+
+rs_ptr RecommendationSystemLoader::create_rs_from_movies(const
 std::string &movies_file_path) noexcept(false)
 {
-    /*ptr_type*/ rs = /*use the right std::make... */
+  rs_ptr rs = std::make_unique<RecommendationSystem>();
     std::ifstream in_file;
     in_file.open(movies_file_path);
     std::string buffer;

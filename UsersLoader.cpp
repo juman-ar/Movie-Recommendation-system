@@ -7,10 +7,10 @@
 
 std::vector<User>
 UsersLoader::create_users
-(const std::string &users_file_path, /*ptr_type*/ rs)
+(const std::string &users_file_path, rs_ptr rs)
 noexcept(false)
 {
-    /* different but still smart ptr_type*/ s_rs = /* use std::move*/
+    rs_ptr s_rs = std::make_unique<RecommendationSystem>();
     std::ifstream in_file;
     std::vector<User> users;
     in_file.open(users_file_path);

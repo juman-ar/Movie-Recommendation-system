@@ -3,6 +3,8 @@
 #define RECOMMENDATIONSYSTEMLOADER_H
 #include "RecommendationSystem.h"
 
+typedef std::unique_ptr<RecommendationSystem> rs_ptr;
+
 class RecommendationSystemLoader {
 
  private:
@@ -15,7 +17,7 @@ class RecommendationSystemLoader {
    * @return smart pointer to a RecommendationSystem which was created with
    * those movies
    */
-  static /*ptr_type*/ create_rs_from_movies
+  static rs_ptr create_rs_from_movies
 	  (const std::string &movies_file_path) noexcept (false);
 };
 
