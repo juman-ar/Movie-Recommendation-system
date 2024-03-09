@@ -25,7 +25,7 @@ const rank_map &User::get_ranks () const
 
 void User::add_movie_to_rs(const std::string &name, int year,
         const std::vector<double> &features, double rate){
-  sp_movie new_movie(name, year);
+  sp_movie new_movie= std::make_shared<Movie>(name, year);
   _ranks[new_movie] = rate;
 
 
