@@ -5,9 +5,7 @@
 #include "RecommendationSystem.h"
 
 
-RecommendationSystem::RecommendationSystem(){
-
-}
+RecommendationSystem::RecommendationSystem()= default;
 
 sp_movie RecommendationSystem::add_movie(const std::string& name,int year,
                                          const std::vector<double>& features){
@@ -120,24 +118,63 @@ sp_movie RecommendationSystem::recommend_by_content(const User& user){
 
 ////Collaborative filtering////
 
-sp_movie RecommendationSystem::recommend_by_cf(const User& user, int k){
+double RecommendationSystem::rank_prediction(const User &user, const sp_movie
+&movie,int k, const std::map<sp_movie, double> &sim_set){
+
+  rank_map users_rank = user.get_ranks();
+  int count = 0;
+  double numerator = 0;
+  double denominator = 0;
+  for(const auto& pair : sim_set){
+    if(count < sim_set.size() - k){
+      count += 1;
+      continue;
+    }
+    denominator+= pair.second;
+    numerator += pair.second * users_rank.find(pair.first)->second ;
+  }
+
+  return numerator/denominator;
 
 }
-
 
 double RecommendationSystem::predict_movie_score(const User &user, const
-sp_movie &movie,
-                           int k){
-
+sp_movie &movie,int k){
+  rank_map users_rank = user.get_ranks();
+  std::vector<double> movie_features= movie_map.find(movie)->second;
+  std::map<sp_movie, double> similarity_set;
+  for(const auto& p : users_rank){
+    similarity_set.insert({p.first, similarity (movie_map.find (p.first)
+    ->second, movie_features)});
+  }
+  return rank_prediction (user, movie, k , similarity_set);
 }
 
 
+sp_movie RecommendationSystem::recommend_by_cf(const User& user, int k){
+  rank_map users_rank= user.get_ranks();
+  sp_movie rec_movie = nullptr;
+  double max_prediction=0 ;
+
+  for(const auto& pair : movie_map){
+    if(users_rank.find (pair.first) != users_rank.end()){
+      continue;
+    }
+    double prediction= predict_movie_score (user, pair.first,k);
+    if(prediction> max_prediction){
+      max_prediction= prediction;
+      rec_movie= pair.first;
+    }
+  }
+
+  return rec_movie;
+}
 
 
-
-std::ostream &operator<< (std::ostream &os,
-        const RecommendationSystem& rs){
-
+std::ostream &operator<< (std::ostream &os, const RecommendationSystem& rs){
+  for(const auto& pair : rs.movie_map){
+    os<< *(pair.first);
+  }
   return os;
 }
 

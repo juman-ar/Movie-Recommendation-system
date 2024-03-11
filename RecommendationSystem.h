@@ -23,14 +23,16 @@ MovieMap;
 
 class RecommendationSystem{
 
-  static MovieMap movie_map;
+  MovieMap movie_map;
 
-  static double get_average(const User& user);
-  static rank_map normalize(const User& user);
-  static std::vector<double> preference_vector(const User& user);
-  static double vec_len(std::vector<double> vec);
-  static double similarity(const std::vector<double>& pref_vec,
-    const std::vector<double>& features);
+  double get_average(const User& user);
+  rank_map normalize(const User& user);
+  std::vector<double> preference_vector(const User& user);
+  double vec_len(std::vector<double> vec);
+  double similarity(const std::vector<double>& pref_vec, const
+              std::vector<double>& features);
+  double rank_prediction(const User &user, const sp_movie &movie,int k,
+                        const std::map<sp_movie, double>& sim_set);
 
   public:
 
