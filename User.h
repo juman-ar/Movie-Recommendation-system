@@ -19,8 +19,11 @@ class User{
 
   std::string _username;
   rank_map _ranks;
+//  friend RecommendationSystem;
 
-public:
+ public:
+
+
 	/**
 	 * Constructor for the class
 	 */

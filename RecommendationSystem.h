@@ -5,11 +5,34 @@
 #ifndef RECOMMENDATIONSYSTEM_H
 #define RECOMMENDATIONSYSTEM_H
 #include <ostream>
+#include <map>
 #include "User.h"
+#include <algorithm>
+#include <cmath>
+#include <numeric>
 
-class RecommendationSystem
-{
-public:
+
+struct CompareMovie {
+    bool operator()(const sp_movie & lhs, const sp_movie & rhs) const {
+      return *lhs < *rhs;
+    }
+};
+
+typedef  std::map<sp_movie,const std::vector<double> ,CompareMovie >
+MovieMap;
+
+class RecommendationSystem{
+
+  static MovieMap movie_map;
+
+  static double get_average(const User& user);
+  static rank_map normalize(const User& user);
+  static std::vector<double> preference_vector(const User& user);
+  static double vec_len(std::vector<double> vec);
+  static double similarity(const std::vector<double>& pref_vec,
+    const std::vector<double>& features);
+
+  public:
 
 	explicit RecommendationSystem();
 
@@ -60,7 +83,7 @@ public:
 
   friend std::ostream &
   operator<< (std::ostream &os, const RecommendationSystem &rs);
-// TODO operator<<
+
 
 };
 
