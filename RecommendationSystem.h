@@ -17,6 +17,11 @@ struct CompareMovie {
       return *lhs < *rhs;
     }
 };
+struct CompareRanks {
+    bool operator()(const std::pair<sp_movie, double>& lhs, const std::pair<sp_movie, double>& rhs) const {
+      return lhs.second > rhs.second;
+    }
+};
 
 typedef  std::map<sp_movie,const std::vector<double> ,CompareMovie >
 MovieMap;
