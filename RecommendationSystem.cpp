@@ -165,7 +165,7 @@ sp_movie &movie,int k){
   }
 
   std::nth_element(movie_sim.begin(), movie_sim.begin() + k, movie_sim
-      .end(), CompareRanks());
+      .end(), compare_ranks());
 
   double k_sum = std::accumulate(movie_sim.begin(), movie_sim.begin() + k,
         0,[](double acc, const auto& pair)
