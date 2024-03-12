@@ -15,7 +15,7 @@
 
 
 #define YEAR_SEPARATOR '-'
-typedef std::unique_ptr<RecommendationSystem> rs_ptr;
+typedef std::shared_ptr<RecommendationSystem> rs_ptr;
 
 
 class UsersLoader

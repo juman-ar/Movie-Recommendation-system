@@ -36,8 +36,8 @@ class RecommendationSystem{
   double vec_len(std::vector<double> vec);
   double similarity(const std::vector<double>& pref_vec, const
               std::vector<double>& features);
-  double rank_prediction(const User &user, const sp_movie &movie,int k,
-                        const std::map<sp_movie, double>& sim_set);
+//  double rank_prediction(const User &user, const sp_movie &movie,int k,
+//                        const std::map<sp_movie, double>& sim_set);
 
   public:
 

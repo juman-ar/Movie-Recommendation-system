@@ -19,7 +19,7 @@ class User{
 
   std::string _username;
   rank_map _ranks;
-//  friend RecommendationSystem;
+  std::shared_ptr<RecommendationSystem> _recommendation_system;
 
  public:
 
@@ -28,7 +28,8 @@ class User{
 	 * Constructor for the class
 	 */
 	// TODO User() this constructor can be implemented however you want
-    explicit User (const std::string& name, const rank_map &ranks);
+    User (const std::string& name, const rank_map &ranks, const
+    std::shared_ptr<RecommendationSystem>& recommendation_system);
 
   /**
    * a getter for the user's name
