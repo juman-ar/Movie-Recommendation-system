@@ -55,9 +55,11 @@ rank_map RecommendationSystem::normalize(const User& user){
 std::vector<double> RecommendationSystem::preference_vector(const User& user){
   std::vector<double> result;
   //start every element in the vector with 0
-  for(auto i : movie_map.begin()->second){
-    result.push_back(0);
-  }
+  size_t vec_size=movie_map.begin()->second.size();
+//  for(auto i : movie_map.begin()->second){
+//    result.push_back(0);
+//  }
+  std::fill_n(result.begin(),vec_size, 0);
 
   rank_map ranks = normalize (user);
 
