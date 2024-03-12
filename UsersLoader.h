@@ -12,7 +12,7 @@
 #include <fstream>
 #include <vector>
 #include "User.h"
-
+#include "RecommendationSystem.h"
 
 #define YEAR_SEPARATOR '-'
 typedef std::shared_ptr<RecommendationSystem> rs_ptr;

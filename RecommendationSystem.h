@@ -88,6 +88,7 @@ class RecommendationSystem{
 	 */
 	sp_movie get_movie(const std::string &name, int year) const;
 
+
   friend std::ostream &
   operator<< (std::ostream &os, const RecommendationSystem &rs);
 

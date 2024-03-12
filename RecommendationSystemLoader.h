@@ -3,7 +3,7 @@
 #define RECOMMENDATIONSYSTEMLOADER_H
 #include "RecommendationSystem.h"
 
-typedef std::unique_ptr<RecommendationSystem> rs_ptr;
+typedef std::shared_ptr<RecommendationSystem> rs_ptr;
 
 class RecommendationSystemLoader {
 
