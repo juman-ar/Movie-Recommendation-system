@@ -30,7 +30,7 @@ double RecommendationSystem::get_average(const User& user){
   int elem_num=0;
   double rank_sum=0;
   for(const auto &pair : user.get_ranks()){
-    if(pair.second){
+    if(pair.second !=0){
       elem_num++;
       rank_sum+= pair.second;
     }
@@ -45,7 +45,7 @@ rank_map RecommendationSystem::normalize(const User& user){
   rank_map ranks = user.get_ranks();
   double avg= get_average (user);
   for(auto& pair : ranks){
-    if(pair.second){
+    if(pair.second != 0){
       pair.second -= avg;
     }
   }
@@ -58,12 +58,13 @@ std::vector<double> RecommendationSystem::preference_vector(const User& user){
   for(auto i : movie_map.begin()->second){
     result.push_back(0);
   }
+
   rank_map ranks = normalize (user);
 
   for(const auto& pair : ranks){
-    if(pair.second){
+    if(pair.second!=0){
       std::vector<double> features= movie_map.find (pair.first)->second;
-      for(int i=0; result.size(); i++){
+      for(int i=0; i< result.size(); i++){
         result[i] += (pair.second* features[i]);
       }
     }
@@ -87,7 +88,7 @@ double RecommendationSystem::similarity(const std::vector<double>& pref_vec,
   double vec_product= std::inner_product (pref_vec.begin(), pref_vec.end(),
                                           features.begin(), 0);
   double vec_lengths = vec_len (pref_vec)* vec_len(features);
-  if(vec_lengths){
+  if(vec_lengths!=0){
     return vec_product/vec_lengths;
   }
   return 0;

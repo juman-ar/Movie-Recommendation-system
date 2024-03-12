@@ -35,7 +35,7 @@ class User{
    * a getter for the user's name
    * @return the username
    */
-  const std::string &get_username () const;
+  const std::string &get_name () const;
 // TODO get_name()
 
 	/**
@@ -74,10 +74,12 @@ class User{
 	 * predicts the score for a given movie
 	 * @param name the name of the movie
 	 * @param year the year the movie was created
-	 * @param k the parameter which represents the number of the most similar movies to predict the score by
+	 * @param k the parameter which represents the number of the
+	 * most similar movies to predict the score by
 	 * @return predicted score for the given movie
 	 */
-	double get_prediction_score_for_movie(const std::string& name, int year, int k) const;
+	double get_prediction_score_for_movie(const std::string& name,
+                                          int year, int k) const;
 
 	/**
 	 * output stream operator

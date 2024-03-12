@@ -18,7 +18,8 @@ struct CompareMovie {
     }
 };
 struct CompareRanks {
-    bool operator()(const std::pair<sp_movie, double>& lhs, const std::pair<sp_movie, double>& rhs) const {
+    bool operator()(const std::pair<sp_movie, double>& lhs,
+        const std::pair<sp_movie, double>& rhs) const {
       return lhs.second > rhs.second;
     }
 };

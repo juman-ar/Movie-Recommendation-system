@@ -40,10 +40,7 @@ const std::string &Movie::get_name () const{
 
 
 bool Movie::operator< ( const Movie &rhs) const{
-  if (_year < rhs._year || (_year == rhs._year && _name < rhs._name)){
-    return true;
-  }
-  return false;
+  return (_year < rhs._year || (_year == rhs._year && _name < rhs._name));
 }
 
 std::ostream& operator<< (std::ostream& os, const Movie& movie){

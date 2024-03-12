@@ -14,7 +14,7 @@ _username(name),
 _ranks(ranks){}
 
 
-const std::string &User::get_username () const
+const std::string &User::get_name () const
 {
   return _username;
 }
