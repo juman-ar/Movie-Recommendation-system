@@ -28,7 +28,7 @@ class User{
 	 * Constructor for the class
 	 */
 	// TODO User() this constructor can be implemented however you want
-    User (const std::string& name, const rank_map &ranks, const
+    User (std::string  name, rank_map ranks, const
     std::shared_ptr<RecommendationSystem>& recommendation_system);
 
   /**

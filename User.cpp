@@ -2,16 +2,18 @@
 
 // don't change those includes
 #include "User.h"
+
+#include <utility>
 #include "RecommendationSystem.h"
 
 
 // implement your cpp code here
 
-User::User (const std::string& name, const rank_map &ranks , const
+User::User (std::string  name, rank_map ranks , const
 std::shared_ptr<RecommendationSystem>& recommendation_system) :
 _recommendation_system(recommendation_system),
-_username(name),
-_ranks(ranks){}
+_username(std::move(name)),
+_ranks(std::move(ranks)){}
 
 
 const std::string &User::get_name () const
