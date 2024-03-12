@@ -9,8 +9,7 @@
 
 User::User (const std::string& name, const rank_map &ranks , const
 std::shared_ptr<RecommendationSystem>& recommendation_system) :
-_recommendation_system(recommendation_system),
-_ranks(ranks){
+_ranks(ranks),_recommendation_system(recommendation_system){
   this->_username= name;
 }
 
