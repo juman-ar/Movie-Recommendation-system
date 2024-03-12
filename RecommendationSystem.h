@@ -14,18 +14,28 @@
 //auto CompareMovie = [](const sp_movie& lhs, const sp_movie& rhs) -> bool {
 //    return *lhs < *rhs;
 //};
-auto CompareRanks = [](const std::pair<sp_movie, double>& lhs,
-                             const std::pair<sp_movie, double>& rhs) -> bool {
-    return lhs.second > rhs.second;
-};
-struct CompareMovie {
-    bool operator()(const sp_movie& lhs, const sp_movie& rhs) const {
-      return *lhs < *rhs;
+//auto CompareRanks = [](const std::pair<sp_movie, double>& lhs,
+//                             const std::pair<sp_movie, double>& rhs) -> bool {
+//    return lhs.second > rhs.second;
+//};
+
+struct CompareRanks {
+    bool operator()(const std::pair<sp_movie, double>& lhs, const std::pair<sp_movie, double>& rhs) const {
+      return lhs.second > rhs.second;
     }
 };
 
+//struct CompareMovie {
+//    bool operator()(const sp_movie& lhs, const sp_movie& rhs) const {
+//      return *lhs < *rhs;
+//    }
+//};
 
-typedef  std::map<sp_movie,const std::vector<double> ,CompareMovie>
+auto CompareMovie = [](const sp_movie& lhs, const sp_movie& rhs) {
+    return *lhs < *rhs;
+};
+
+typedef  std::map<sp_movie,const std::vector<double> , decltype (CompareMovie)>
 MovieMap;
 
 class RecommendationSystem{
