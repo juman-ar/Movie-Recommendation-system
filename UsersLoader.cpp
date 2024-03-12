@@ -22,7 +22,7 @@ noexcept(false)
     {
         size_t end = buffer.find(YEAR_SEPARATOR);
         sp_movie m = s_rs->get_movie(buffer.substr(0, end),
-                                      std::stoi(buffer.substr(end + 1, buffer.length())));
+    std::stoi(buffer.substr(end + 1, buffer.length())));
         movies.push_back(m);
     }
     while (getline(in_file, buffer))
