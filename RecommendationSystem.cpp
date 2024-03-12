@@ -66,7 +66,7 @@ std::vector<double> RecommendationSystem::preference_vector(const User& user){
   for(const auto& pair : ranks){
     if(pair.second!=0){
       std::vector<double> features= movie_map.find (pair.first)->second;
-      for(int i=0; i< result.size(); i++){
+      for(size_t i=0; i< result.size(); i++){
         result[i] += (pair.second* features[i]);
       }
     }
