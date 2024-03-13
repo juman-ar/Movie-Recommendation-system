@@ -22,9 +22,8 @@ typedef bool (*equal_func)(const sp_movie& m1,const sp_movie& m2);
 std::size_t sp_movie_hash(const sp_movie& movie);
 bool sp_movie_equal(const sp_movie& m1,const sp_movie& m2);
 
-class Movie
-{
-
+class Movie {
+private:
   std::string _name;
   int _year;
    

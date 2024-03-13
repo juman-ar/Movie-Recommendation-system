@@ -26,7 +26,9 @@ bool sp_movie_equal(const sp_movie& m1,const sp_movie& m2){
     return !(*m1 < *m2) && !(*m2 < *m1);
 }
 
-Movie::Movie(const std::string& name, int year) : _name(name), _year(year){}
+Movie::Movie(const std::string& name, int year) :_year(year){
+  this->_name= name;
+}
 
 
 int Movie::get_year () const {

@@ -27,7 +27,6 @@ class User{
 	/**
 	 * Constructor for the class
 	 */
-	// TODO User() this constructor can be implemented however you want
     User (const std::string& name, const rank_map &ranks, const
     std::shared_ptr<RecommendationSystem>& recommendation_system);
 
@@ -36,8 +35,6 @@ class User{
    * @return the username
    */
   const std::string &get_name () const;
-// TODO get_name()
-
 	/**
 	 * function for adding a movie to the DB
 	 * @param name name of movie
@@ -87,7 +84,6 @@ class User{
 	 * @param user the user
 	 * @return output stream
 	 */
-	// TODO &operator<<
     friend std::ostream &operator<< (std::ostream &os, const User &user);
 };
 
