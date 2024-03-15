@@ -133,7 +133,8 @@ sp_movie RecommendationSystem::recommend_by_content(const User& user){
 ////Collaborative filtering////
 
 
-double RecommendationSystem::predict_movie_score(const User &user, const sp_movie &movie, int k) {
+double RecommendationSystem::predict_movie_score(const User &user,
+                                   const sp_movie &movie, int k) {
   rank_map users_rank = user.get_ranks();
   std::vector<std::pair<sp_movie, double>> similarity_scores;
 
@@ -156,7 +157,7 @@ double RecommendationSystem::predict_movie_score(const User &user, const sp_movi
 
   // Use top-k similar movies for prediction
   double weighted_sum = 0, sim_sum = 0;
-  for (int i = 0; i < k && i < similarity_scores.size(); ++i) {
+  for (int i = 0; i < k && i < (int)similarity_scores.size(); ++i) {
     double sim = similarity_scores[i].second;
     weighted_sum += sim * users_rank.at(similarity_scores[i].first);
     sim_sum += sim;
