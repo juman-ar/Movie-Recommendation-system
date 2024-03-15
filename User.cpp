@@ -56,7 +56,8 @@ double User::get_prediction_score_for_movie(const std::string& name, int year,
 
 std::ostream &operator<< (std::ostream &os, const User &user)
 {
-  os << user._username<< ": \n" << *user._recommendation_system << std::endl;
+  os << user.get_name()<< ": \n" << *(user._recommendation_system) <<
+  std::endl;
   return os;
 }
 

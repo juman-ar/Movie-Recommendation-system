@@ -10,7 +10,7 @@ UsersLoader::create_users
 (const std::string &users_file_path, rs_ptr rs)
 noexcept(false)
 {
-  rs_ptr s_rs = std::move (rs);
+  std::shared_ptr<RecommendationSystem> s_rs = std::move (rs);
     std::ifstream in_file;
     std::vector<User> users;
     in_file.open(users_file_path);
