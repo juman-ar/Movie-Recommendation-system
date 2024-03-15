@@ -210,7 +210,7 @@ double RecommendationSystem::predict_movie_score(const User &user, const sp_movi
   });
 
   // Step 3: Trim the vector to keep only the top `k` items
-  if (movie_sim.size() > k) {
+  if ((int)movie_sim.size() > k) {
     movie_sim.resize(k);
   }
 
