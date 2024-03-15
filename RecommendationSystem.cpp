@@ -126,37 +126,37 @@ sp_movie RecommendationSystem::recommend_by_content(const User& user){
 
 ////Collaborative filtering////
 
-double RecommendationSystem::rank_prediction(const User &user, const sp_movie
-&movie,int k, const std::map<sp_movie, double> &sim_set){
-
-  rank_map users_rank = user.get_ranks();
-  int count = 0;
-  double numerator = 0;
-  double denominator = 0;
-  for(const auto& pair : sim_set){
-    if(count < sim_set.size() - k){
-      count += 1;
-      continue;
-    }
-    denominator+= pair.second;
-    numerator += pair.second * users_rank.find(pair.first)->second ;
-  }
-
-  return numerator/denominator;
-
-}
-
-double RecommendationSystem::predict_movie_score(const User &user, const
-sp_movie &movie,int k){
-  rank_map users_rank = user.get_ranks();
-  std::vector<double> movie_features= movie_map.find(movie)->second;
-  std::map<sp_movie, double> similarity_set;
-  for(const auto& p : users_rank){
-    similarity_set.insert({p.first, similarity (movie_map.find (p.first)
-    ->second, movie_features)});
-  }
-  return rank_prediction (user, movie, k , similarity_set);
-}
+//double RecommendationSystem::rank_prediction(const User &user, const sp_movie
+//&movie,int k, const std::map<sp_movie, double> &sim_set){
+//
+//  rank_map users_rank = user.get_ranks();
+//  int count = 0;
+//  double numerator = 0;
+//  double denominator = 0;
+//  for(const auto& pair : sim_set){
+//    if(count < sim_set.size() - k){
+//      count += 1;
+//      continue;
+//    }
+//    denominator+= pair.second;
+//    numerator += pair.second * users_rank.find(pair.first)->second ;
+//  }
+//
+//  return numerator/denominator;
+//
+//}
+//
+//double RecommendationSystem::predict_movie_score(const User &user, const
+//sp_movie &movie,int k){
+//  rank_map users_rank = user.get_ranks();
+//  std::vector<double> movie_features= movie_map.find(movie)->second;
+//  std::map<sp_movie, double> similarity_set;
+//  for(const auto& p : users_rank){
+//    similarity_set.insert({p.first, similarity (movie_map.find (p.first)
+//    ->second, movie_features)});
+//  }
+//  return rank_prediction (user, movie, k , similarity_set);
+//}
 
 //double RecommendationSystem::predict_movie_score(const User &user, const
 //sp_movie &movie,int k){
@@ -188,6 +188,49 @@ sp_movie &movie,int k){
 //
 //  return k_sum/similarity_sum;
 //}
+double RecommendationSystem::predict_movie_score(const User &user, const sp_movie &movie, int k){
+  rank_map users_rank = user.get_ranks();
+  std::vector<std::pair<sp_movie, double>> movie_sim;
+
+  // Step 1: Insert all scores into a vector
+  for (const auto& pair : movie_map) {
+    if (users_rank.find(pair.first) == users_rank.end()) {
+      continue;
+    }
+    double sim_score = similarity(pair.second,
+                                  movie_map.at(movie));
+    movie_sim.emplace_back(pair.first,
+                           sim_score * users_rank.at(pair.first));
+  }
+
+  // Sort the vector in descending order of scores
+  std::sort(movie_sim.begin(), movie_sim.end(), [](const auto& a,
+      const auto& b) {
+      return a.second > b.second;
+  });
+
+  // Step 3: Trim the vector to keep only the top `k` items
+  if (movie_sim.size() > k) {
+    movie_sim.resize(k);
+  }
+
+  // Step 4: Compute the final score
+  double k_sum = std::accumulate(movie_sim.begin(), movie_sim.end(),
+      0.0, [](double acc, const auto& pair) {
+      return acc + pair.second;
+  });
+
+  double similarity_sum = std::accumulate(movie_sim.begin(),
+          movie_sim.end(), 0.0, [](double acc, const auto& pair) {
+      return acc + pair.second;
+  });
+
+  if (similarity_sum == 0) {
+    return 0;
+  }
+
+  return k_sum / similarity_sum;
+}
 
 
 sp_movie RecommendationSystem::recommend_by_cf(const User& user, int k){
