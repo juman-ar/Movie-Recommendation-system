@@ -9,7 +9,9 @@ RecommendationSystem::RecommendationSystem()= default;
 
 sp_movie RecommendationSystem::add_movie(const std::string& name,int year,
                                          const std::vector<double>& features){
-  sp_movie new_movie = std::make_shared<Movie>(name, year);
+//  sp_movie new_movie = std::make_shared<Movie>(name, year);
+  Movie movie(name, year);
+  sp_movie new_movie= std::make_shared<Movie>(movie);
   movie_map.insert({new_movie, features});
   return new_movie;
 }
@@ -17,10 +19,11 @@ sp_movie RecommendationSystem::add_movie(const std::string& name,int year,
 sp_movie RecommendationSystem::get_movie(const std::string &name, int year)
 const{
   sp_movie new_movie = std::make_shared<Movie>(name, year);
-  if(movie_map.find (new_movie) != movie_map.end()){
-    return new_movie;
+  auto found= movie_map.find (new_movie);
+  if( found == movie_map.end()){
+    return nullptr;
   }
-  return nullptr;
+  return found->first;
 }
 
 
