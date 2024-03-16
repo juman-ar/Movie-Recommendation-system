@@ -9,7 +9,6 @@ RecommendationSystem::RecommendationSystem()= default;
 
 sp_movie RecommendationSystem::add_movie(const std::string& name,int year,
                                          const std::vector<double>& features){
-//  sp_movie new_movie = std::make_shared<Movie>(name, year);
   Movie movie(name, year);
   sp_movie new_movie= std::make_shared<Movie>(movie);
   movie_map.insert({new_movie, features});
@@ -74,6 +73,7 @@ std::vector<double> RecommendationSystem::preference_vector(const User& user){
 //      for(size_t i=0; i< result.size(); i++){
 //        result[i] += (pair.second* features[i]);
 //     }
+
     }
   }
   return result ;
