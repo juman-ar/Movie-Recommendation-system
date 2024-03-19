@@ -28,14 +28,13 @@ const{
 
 ////recommendation by content////
 
+//checked
 double RecommendationSystem::get_average(const User& user){
   int elem_num=0;
   double rank_sum=0;
   for(const auto &pair : user.get_ranks()){
-//    if(pair.second !=0){
       elem_num++;
       rank_sum+= pair.second;
-//    }
   }
   if(!elem_num){
     return 0;
@@ -43,22 +42,23 @@ double RecommendationSystem::get_average(const User& user){
   return rank_sum/elem_num;
 }
 
+//checked
 rank_map RecommendationSystem::normalize(const User& user){
   rank_map ranks = user.get_ranks();
   double avg= get_average (user);
   for(auto& pair : ranks){
-//    if(pair.second != 0){
       pair.second -= avg;
-//    }
+
   }
   return ranks;
 }
 
 std::vector<double> RecommendationSystem::preference_vector(const User& user){
-  if(movie_map.empty()){
-    return std::vector<double>();
-  }
+//  if(movie_map.empty()){
+//    return std::vector<double>();
+//  }
   std::vector<double> result(movie_map.begin()->second.size(), 0.0);
+
   rank_map ranks = normalize (user);
 
 
@@ -69,14 +69,9 @@ std::vector<double> RecommendationSystem::preference_vector(const User& user){
         result[i] += pair.second * movie_it->second[i];
       }
 
-//      std::vector<double> features= movie_map.find (pair.first)->second;
-//      for(size_t i=0; i< result.size(); i++){
-//        result[i] += (pair.second* features[i]);
-//     }
-
     }
   }
-  return result ;
+  return result;
 }
 
 
@@ -92,8 +87,6 @@ double RecommendationSystem::vec_len(const std::vector<double>& vec){
 double RecommendationSystem::similarity(const std::vector<double>& pref_vec,
               const std::vector<double>& features){
 
-//  double vec_product= std::inner_product (pref_vec.begin(), pref_vec.end(),
-//                                          features.begin(), 0);
  double vec_product= 0;
  for(int i=0;i< (int)pref_vec.size();i++){
    vec_product+= pref_vec[i]*features[i];
@@ -112,14 +105,14 @@ sp_movie RecommendationSystem::recommend_by_content(const User& user){
   if(users_pref.empty()) {
     return nullptr;
   }
-//  rank_map n_ranks= normalize (user);
+  rank_map n_ranks= normalize (user);
   sp_movie rec_movie = nullptr;
-  double max_similarity=-1 ;
+  double max_similarity=-1;
 
   for(const auto& pair : movie_map){
-//    if(n_ranks.find (pair.first) != n_ranks.end()){
-//      continue;
-//    }
+    if(n_ranks.find (pair.first) != n_ranks.end()){
+      continue;
+    }
     double sim = similarity (users_pref, pair.second);
     if(sim > max_similarity){
       max_similarity= sim;
